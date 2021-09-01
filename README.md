@@ -1,5 +1,5 @@
 # PCNet
-## PCNet: Cloud Detection in FY-3D True Color Imagery Using Multi-scale Pyramid Contexual Information
+## PCNet: Cloud Detection in FY-3D True Color Imagery Using Multi-Scale Pyramid Contexual Information
 
 This is the official implementation of PCNet.
 ## Data
