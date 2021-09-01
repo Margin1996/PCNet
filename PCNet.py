@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from utils import DRB,PNB,ChannelSELayer
+from utils import DRB,PCB,ChannelSELayer
 
 
 
@@ -17,9 +17,9 @@ class CloudDetector(nn.Module):
             nn.LeakyReLU(0.2,inplace=False))
 
 
-        self.PNB1 = PNB(in_num=64,filter_num=32)
+        self.PCB1 = PCB(in_num=64,filter_num=32)
         self.DRB1 = DRB(channels=64)
-        self.PNB2 = PNB(in_num=64,filter_num=32)
+        self.PCB2 = PCB(in_num=64,filter_num=32)
         self.DRB2 = DRB(channels=64)
         self.ChannelSE = ChannelSELayer(num_channels=64*3)
 
@@ -45,8 +45,8 @@ class CloudDetector(nn.Module):
     def forward(self, input):
         x = self.in_conv_1(input)
         f1 = self.in_conv_2(x)
-        f2 = self.PNB1(self.DRB1(f1))
-        f3 = self.PNB2(self.DRB2(f2))
+        f2 = self.PCB1(self.DRB1(f1))
+        f3 = self.PCB2(self.DRB2(f2))
 
         fusion = torch.cat((f1, f2, f3), 1)
         fusion = self.ChannelSE(fusion)
